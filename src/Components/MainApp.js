@@ -7,6 +7,7 @@ import Login from './Login';
 import Register from './Register';
 import ProductList from './ProductList';
 import MerchantDashboard from './MerchantDashboard';
+import '../App.css'
 
 function MainApp() {
   return (
