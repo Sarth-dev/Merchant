@@ -262,7 +262,7 @@ const MerchantDashboard = () => {
                   <h4>{product.title}</h4>
                   <p>{product.description}</p>
                   <div style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem 0' }}>
-                    <span style={{ fontWeight: 'bold', color: '#e74c3c' }}>${product.price}</span>
+                    <span style={{ fontWeight: 'bold', color: '#e74c3c' }}>₹{product.price}</span>
                     <span style={{ background: '#3498db', color: 'white', padding: '0.25rem 0.5rem', borderRadius: '12px', fontSize: '0.8rem' }}>
                       {product.category}
                     </span>
