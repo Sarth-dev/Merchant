@@ -1,51 +1,16 @@
-"use client"
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import Navbar from '../Components/Navbar';
-import Login from '../Components/Login';
-import Register from '../Components/Register';
-import ProductList from '../Components/ProductList';
-import MerchantDashboard from '../Components/MerchantDashboard';
-import '../App.css';
+import dynamic from 'next/dynamic';
+import NoSSR from '../Components/noSSR';
 
-function App() {
+// Dynamically import with no SSR
+const MainApp = dynamic(() => import('../components/MainApp'), {
+  ssr: false,
+  loading: () => <div style={{ padding: '2rem', textAlign: 'center' }}>Loading E-Commerce App...</div>
+});
+
+export default function Home() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="App">
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<ProductList />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route 
-              path="/merchant-dashboard" 
-              element={
-                <ProtectedRoute role="merchant">
-                  <MerchantDashboard />
-                </ProtectedRoute>
-              } 
-            />
-          </Routes>
-        </div>
-      </Router>
-    </AuthProvider>
+    <NoSSR>
+      <MainApp />
+    </NoSSR>
   );
 }
-
-function ProtectedRoute({ children, role }) {
-  const { user, loading } = useAuth();
-  
-  if (loading) return <div>Loading...</div>;
-  
-  if (!user) return <Navigate to="/login" />;
-  
-  if (role && user.role !== role) {
-    return <Navigate to="/" />;
-  }
-  
-  return children;
-}
-
-export default App;
